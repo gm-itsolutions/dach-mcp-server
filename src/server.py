@@ -13,8 +13,13 @@ from mcp.server.fastmcp import FastMCP
 from src.tools.media import register_media_tools
 from src.tools.documents import register_document_tools
 
+PORT = int(os.getenv("MCP_PORT", "32400"))
+HOST = os.getenv("MCP_HOST", "0.0.0.0")
+
 mcp = FastMCP(
     name="Gefährdungsbeurteilung",
+    host=HOST,
+    port=PORT,
     stateless_http=True,   # Kein Session-State → skalierbar & restart-sicher
     json_response=True,    # JSON statt SSE-Streaming → robuster für OpenWebUI
 )
@@ -26,18 +31,11 @@ register_document_tools(mcp)
 
 def main():
     """Startet den MCP Server mit Streamable HTTP Transport."""
-    port = int(os.getenv("MCP_PORT", "32400"))
-    host = os.getenv("MCP_HOST", "0.0.0.0")
-
     print(f"🏗️  Gefährdungsbeurteilungs-MCP Server")
-    print(f"📡  Streamable HTTP auf {host}:{port}/mcp")
+    print(f"📡  Streamable HTTP auf {HOST}:{PORT}/mcp")
     print(f"🔧  Tools: video_to_frames, extract_image_metadata, create_gefaehrdungsbeurteilung")
 
-    mcp.run(
-        transport="streamable-http",
-        host=host,
-        port=port,
-    )
+    mcp.run(transport="streamable-http")
 
 
 if __name__ == "__main__":
