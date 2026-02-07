@@ -11,7 +11,7 @@ MCP Server für automatisierte Gefährdungsbeurteilungen im Dachdecker- und Ger�
 │  ┌─────────────┐      ┌──────────────────────┐       │
 │  │ dach-webui   │──────│ dach-mcp             │       │
 │  │ (OpenWebUI)  │ HTTP │ (FastMCP Server)     │       │
-│  │ Port 8080    │──────│ Port 8001            │       │
+│  │ Port 8080    │──────│ Port 32400            │       │
 │  │              │      │                      │       │
 │  │ Domain: ✅   │      │ Domain: ❌ (intern)  │       │
 │  └──────┬───────┘      │                      │       │
@@ -27,7 +27,7 @@ MCP Server für automatisierte Gefährdungsbeurteilungen im Dachdecker- und Ger�
 └──────────────────────────────────────────────────────┘
 ```
 
-**Verbindung**: OpenWebUI → `http://dach-mcp:8001/mcp` (Streamable HTTP MCP)
+**Verbindung**: OpenWebUI → `http://dach-mcp:32400/mcp` (Streamable HTTP MCP)
 
 ## Tools
 
@@ -51,13 +51,13 @@ pip install -e .
 # Server starten
 python -m src.server
 
-# → Läuft auf http://localhost:8001/mcp
+# → Läuft auf http://localhost:32400/mcp
 ```
 
 ### Testen mit MCP Inspector
 
 ```bash
-npx @modelcontextprotocol/inspector http://localhost:8001/mcp
+npx @modelcontextprotocol/inspector http://localhost:32400/mcp
 ```
 
 ## Coolify Deployment
@@ -82,7 +82,7 @@ npx @modelcontextprotocol/inspector http://localhost:8001/mcp
 ```
 Admin Panel → Settings → Tools → "+"
 Typ:  MCP (Streamable HTTP)
-URL:  http://dach-mcp:8001/mcp
+URL:  http://dach-mcp:32400/mcp
 ```
 
 ### 4. Assistent einrichten
@@ -113,7 +113,7 @@ Folgende Dokumente in OpenWebUI als Knowledge Base hochladen:
 docker exec $(docker ps -qf "name=dach-webui") sh -c "nslookup dach-mcp"
 
 # MCP Server erreichbar?
-docker exec $(docker ps -qf "name=dach-webui") sh -c "curl -s http://dach-mcp:8001/mcp"
+docker exec $(docker ps -qf "name=dach-webui") sh -c "curl -s http://dach-mcp:32400/mcp"
 
 # Netzwerk-Aliase prüfen
 docker inspect $(docker ps -qf "name=dach-mcp") \

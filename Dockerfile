@@ -24,15 +24,15 @@ RUN mkdir -p /tmp/processing
 
 # Umgebungsvariablen
 ENV MCP_HOST=0.0.0.0
-ENV MCP_PORT=8001
+ENV MCP_PORT=32400
 ENV TEMPLATES_DIR=/app/templates
 ENV TEMP_DIR=/tmp/processing
 ENV PYTHONUNBUFFERED=1
 
-EXPOSE 8001
+EXPOSE 32400
 
 # Healthcheck: prüft ob der HTTP-Server antwortet
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8001/mcp')" || exit 1
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:32400/mcp')" || exit 1
 
 CMD ["python", "-m", "src.server"]

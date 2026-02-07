@@ -4,7 +4,7 @@ Gefährdungsbeurteilungs-MCP Server
 Stellt Tools für Baustellenanalyse und Dokumenterstellung bereit.
 
 Transport: Streamable HTTP (direkt von OpenWebUI ansprechbar)
-Endpoint:  http://<host>:8001/mcp
+Endpoint:  http://<host>:32400/mcp
 """
 
 import os
@@ -26,7 +26,7 @@ register_document_tools(mcp)
 
 def main():
     """Startet den MCP Server mit Streamable HTTP Transport."""
-    port = int(os.getenv("MCP_PORT", "8001"))
+    port = int(os.getenv("MCP_PORT", "32400"))
     host = os.getenv("MCP_HOST", "0.0.0.0")
 
     print(f"🏗️  Gefährdungsbeurteilungs-MCP Server")

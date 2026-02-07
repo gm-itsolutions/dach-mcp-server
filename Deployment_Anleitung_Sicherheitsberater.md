@@ -169,7 +169,7 @@ In den Resource-Settings:
 2. **"Connect to Predefined Network"**: ✅ **AKTIVIEREN**
 3. **Domain**: ❌ **LEER LASSEN** (Server ist nur intern erreichbar)
 
-> **Warum?** Durch das Predefined Network wird der Service-Name `dach-mcp` als DNS-Alias im `coolify`-Netzwerk registriert. OpenWebUI kann den Server dann über `http://dach-mcp:8001/mcp` erreichen.
+> **Warum?** Durch das Predefined Network wird der Service-Name `dach-mcp` als DNS-Alias im `coolify`-Netzwerk registriert. OpenWebUI kann den Server dann über `http://dach-mcp:32400/mcp` erreichen.
 
 ### 2.4 Umgebungsvariablen setzen
 
@@ -177,7 +177,7 @@ Unter **Environment Variables**:
 
 ```
 MCP_HOST=0.0.0.0
-MCP_PORT=8001
+MCP_PORT=32400
 TEMPLATES_DIR=/app/templates
 TEMP_DIR=/tmp/processing
 ```
@@ -188,7 +188,7 @@ TEMP_DIR=/tmp/processing
 2. Build-Log beobachten – sollte durchlaufen mit:
    - `Step: Installing ffmpeg` ✅
    - `Step: pip install` ✅
-   - `Step: EXPOSE 8001` ✅
+   - `Step: EXPOSE 32400` ✅
 3. Warten bis Status **"Running"** zeigt
 4. Healthcheck: Grüner Punkt (kann bis zu 30 Sekunden dauern)
 
@@ -267,7 +267,7 @@ RAG_TOP_K=8
 3. **"+"** (neues Tool hinzufügen)
 4. Konfiguration:
    - **Typ**: `MCP (Streamable HTTP)`
-   - **URL**: `http://dach-mcp:8001/mcp`
+   - **URL**: `http://dach-mcp:32400/mcp`
    - **Auth**: Keine / None
 5. **"Save"**
 6. Prüfen: Die 4 Tools sollten automatisch erkannt werden:
@@ -358,7 +358,7 @@ docker exec $(docker ps -qf "name=dach-webui") \
 
 # HTTP-Verbindung: Ist der MCP Endpoint erreichbar?
 docker exec $(docker ps -qf "name=dach-webui") \
-  sh -c "curl -s http://dach-mcp:8001/mcp"
+  sh -c "curl -s http://dach-mcp:32400/mcp"
 
 # Netzwerk-Aliase des MCP Containers prüfen
 docker inspect $(docker ps -qf "name=dach-mcp") \
@@ -383,10 +383,10 @@ docker ps --filter "name=dach-" --format "table {{.Names}}\t{{.Status}}\t{{.Port
 | Problem | Ursache | Lösung |
 |---------|---------|--------|
 | "Tool konnte nicht ausgeführt werden" | MCP Container nicht erreichbar | Prüfe: Predefined Network aktiviert? DNS `nslookup dach-mcp` funktioniert? |
-| Tools werden nicht in OpenWebUI angezeigt | Falsche URL oder Transport-Typ | URL muss `http://dach-mcp:8001/mcp` sein (nicht https, nicht /sse) |
+| Tools werden nicht in OpenWebUI angezeigt | Falsche URL oder Transport-Typ | URL muss `http://dach-mcp:32400/mcp` sein (nicht https, nicht /sse) |
 | PDF-Erstellung schlägt fehl | ffmpeg fehlt im Container | Dockerfile prüfen: `apt-get install ffmpeg` vorhanden? |
 | "Modell nicht erreichbar" | Azure API Key falsch | Umgebungsvariable `OPENAI_API_KEY` in dach-webui prüfen |
-| Container startet, fällt aber sofort | Port-Konflikt oder Crash | `docker logs` prüfen, ggf. Port 8001 belegt |
+| Container startet, fällt aber sofort | Port-Konflikt oder Crash | `docker logs` prüfen, ggf. Port 32400 belegt |
 | OpenWebUI zeigt keine Domain | DNS noch nicht propagiert | DNS-Eintrag prüfen: A-Record auf Coolify-Server-IP? |
 
 ---
@@ -440,7 +440,7 @@ docker cp $(docker ps -qf "name=dach-webui"):/app/backend/data ./backup-$(date +
       ↓
 4. OpenWebUI: MCP verbinden
    - Typ: Streamable HTTP
-   - URL: http://dach-mcp:8001/mcp
+   - URL: http://dach-mcp:32400/mcp
       ↓
 5. OpenWebUI: Assistent einrichten
    - System-Prompt einfügen

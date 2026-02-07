@@ -7,7 +7,7 @@
 #   - "Connect to Predefined Network" in Coolify AKTIVIEREN
 #   - Domain vergeben: z.B. ai.kundenname.de
 #   - Kommuniziert intern mit dach-mcp via:
-#     http://dach-mcp:8001/mcp
+#     http://dach-mcp:32400/mcp
 # ─────────────────────────────────────────────────
 
 services:

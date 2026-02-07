@@ -8,7 +8,7 @@
 #   - Keine Domain vergeben (nur intern erreichbar)
 #   - Service-Name "dach-mcp" wird als DNS-Alias registriert
 #   - OpenWebUI erreicht diesen Server via:
-#     http://dach-mcp:8001/mcp
+#     http://dach-mcp:32400/mcp
 # ─────────────────────────────────────────────────
 
 services:
@@ -17,10 +17,10 @@ services:
       context: .
       dockerfile: Dockerfile
     expose:
-      - "8001"            # NUR intern – kein externer Zugriff
+      - "32400"            # NUR intern – kein externer Zugriff
     environment:
       - MCP_HOST=0.0.0.0
-      - MCP_PORT=8001
+      - MCP_PORT=32400
       - TEMPLATES_DIR=/app/templates
       - TEMP_DIR=/tmp/processing
     restart: unless-stopped
