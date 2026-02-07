@@ -13,7 +13,7 @@ WORKDIR /app
 
 # Python-Dependencies installieren (Cache-Layer)
 COPY pyproject.toml .
-RUN pip install --no-cache-dir -e ".[cli]" 2>/dev/null || pip install --no-cache-dir .
+RUN pip install --no-cache-dir "mcp[cli]>=1.9.0" Pillow reportlab uvicorn
 
 # Applikation kopieren
 COPY src/ src/
