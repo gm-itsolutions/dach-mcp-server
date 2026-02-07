@@ -1,0 +1,29 @@
+# ─────────────────────────────────────────────────
+# dach-mcp – Gefährdungsbeurteilungs-MCP Server
+# ─────────────────────────────────────────────────
+# Coolify-Deployment als Docker Compose Resource
+#
+# WICHTIG:
+#   - "Connect to Predefined Network" in Coolify AKTIVIEREN
+#   - Keine Domain vergeben (nur intern erreichbar)
+#   - Service-Name "dach-mcp" wird als DNS-Alias registriert
+#   - OpenWebUI erreicht diesen Server via:
+#     http://dach-mcp:8001/mcp
+# ─────────────────────────────────────────────────
+
+services:
+  dach-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "8001"            # NUR intern – kein externer Zugriff
+    environment:
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8001
+      - TEMPLATES_DIR=/app/templates
+      - TEMP_DIR=/tmp/processing
+    restart: unless-stopped
+    # Keine networks: Section → Coolify managed das Predefined Network
+    # Keine ports: Section → nur expose für interne Kommunikation
+    # Keine Domain → kein Traefik-Routing nötig

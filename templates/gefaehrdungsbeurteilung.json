@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0",
+  "name": "Gefährdungsbeurteilung Dachdecker & Gerüstbau",
+  "beschreibung": "Standard-Template für Gefährdungsbeurteilungen im Dachdecker- und Gerüstbaugewerbe nach DGUV Vorschrift 38, TRBS 2121 und BG BAU Handlungshilfen.",
+  "felder": {
+    "projekt_name": {
+      "typ": "text",
+      "pflicht": true,
+      "beschreibung": "Name des Bauprojekts"
+    },
+    "baustelle_adresse": {
+      "typ": "text",
+      "pflicht": true,
+      "beschreibung": "Vollständige Anschrift der Baustelle"
+    },
+    "ersteller": {
+      "typ": "text",
+      "pflicht": true,
+      "beschreibung": "Name des Erstellers (Fachkraft für Arbeitssicherheit, Bauleiter)"
+    },
+    "datum": {
+      "typ": "datum",
+      "pflicht": false,
+      "standard": "heute",
+      "beschreibung": "Datum der Beurteilung (YYYY-MM-DD)"
+    },
+    "auftraggeber": {
+      "typ": "text",
+      "pflicht": false,
+      "beschreibung": "Name des Auftraggebers"
+    },
+    "bauvorhaben_art": {
+      "typ": "auswahl",
+      "pflicht": false,
+      "optionen": [
+        "Dachsanierung",
+        "Dachneueindeckung",
+        "Flachdachabdichtung",
+        "Gerüststellung",
+        "Gerüstabbau",
+        "Fassadenarbeiten",
+        "Dachklempnerarbeiten",
+        "Sonstige"
+      ]
+    }
+  },
+  "standard_gefaehrdungen": [
+    {
+      "nr": 1,
+      "bereich": "Dacharbeiten",
+      "gefaehrdung": "Absturz von der Dachfläche/Dachkante",
+      "risiko": "hoch",
+      "massnahmen": "Seitenschutz an Dachkanten, Fangnetze, PSAgA mit Auffanggurt und Sicherungsseil",
+      "rechtsgrundlage": "TRBS 2121, DGUV Vorschrift 38"
+    },
+    {
+      "nr": 2,
+      "bereich": "Dacharbeiten",
+      "gefaehrdung": "Durchsturz durch nicht tragfähige Bauteile",
+      "risiko": "hoch",
+      "massnahmen": "Schutznetze, begehbare Abdeckungen, Laufstege, Kennzeichnung",
+      "rechtsgrundlage": "TRBS 2121 Teil 1, DGUV Information 201-023"
+    },
+    {
+      "nr": 3,
+      "bereich": "Gerüstbau",
+      "gefaehrdung": "Absturz während Auf-/Um-/Abbau des Gerüsts",
+      "risiko": "hoch",
+      "massnahmen": "Voreilender Seitenschutz, PSAgA, geschultes Personal",
+      "rechtsgrundlage": "TRBS 2121 Teil 1, DGUV Vorschrift 38"
+    },
+    {
+      "nr": 4,
+      "bereich": "Gerüstbau",
+      "gefaehrdung": "Umkippen oder Versagen der Gerüstkonstruktion",
+      "risiko": "hoch",
+      "massnahmen": "Standsicherheitsnachweis, Verankerung nach Hersteller, Prüfung durch befähigte Person",
+      "rechtsgrundlage": "TRBS 2121 Teil 1, DIN EN 12811"
+    },
+    {
+      "nr": 5,
+      "bereich": "Gerüst (Nutzung)",
+      "gefaehrdung": "Fehlender/unvollständiger Seitenschutz",
+      "risiko": "hoch",
+      "massnahmen": "Dreiteiliger Seitenschutz (Geländer 1,00m, Zwischenholm 0,50m, Bordbrett 15cm)",
+      "rechtsgrundlage": "TRBS 2121 Teil 1, ArbStättV"
+    },
+    {
+      "nr": 6,
+      "bereich": "Transport",
+      "gefaehrdung": "Herabfallende Gegenstände/Werkzeuge",
+      "risiko": "mittel",
+      "massnahmen": "Bordbretter, Werkzeug-Sicherungsbänder, Absperrung Gefahrenbereich, Helmtragepflicht",
+      "rechtsgrundlage": "DGUV Vorschrift 38, ArbStättV"
+    },
+    {
+      "nr": 7,
+      "bereich": "Transport",
+      "gefaehrdung": "Manuelle Handhabung schwerer Lasten",
+      "risiko": "mittel",
+      "massnahmen": "Aufzüge/Krane, Traglasten beachten, ergonomische Unterweisung",
+      "rechtsgrundlage": "LasthandhabV, DGUV Information 208-033"
+    },
+    {
+      "nr": 8,
+      "bereich": "Allgemein",
+      "gefaehrdung": "Witterungseinflüsse (Sturm, Regen, Eis, Hitze)",
+      "risiko": "mittel",
+      "massnahmen": "Arbeitsunterbrechung ab Windstärke 6 (Dach) / 8 (Gerüst), rutschfeste Schuhe, UV-Schutz",
+      "rechtsgrundlage": "DGUV Vorschrift 38, TRBS 2121"
+    },
+    {
+      "nr": 9,
+      "bereich": "Elektrik",
+      "gefaehrdung": "Kontakt mit Freileitungen",
+      "risiko": "hoch",
+      "massnahmen": "Mindestabstand 3m (≤1kV) / 5m (>1kV), Absprache mit Versorger",
+      "rechtsgrundlage": "DGUV Vorschrift 3, BetrSichV"
+    },
+    {
+      "nr": 10,
+      "bereich": "Allgemein",
+      "gefaehrdung": "Fehlende/unzureichende PSA",
+      "risiko": "mittel",
+      "massnahmen": "Helm EN 397, Schuhe S3, Handschuhe, Schutzbrille bei Schneidarbeiten",
+      "rechtsgrundlage": "PSA-BV, DGUV Vorschrift 1"
+    }
+  ]
+}

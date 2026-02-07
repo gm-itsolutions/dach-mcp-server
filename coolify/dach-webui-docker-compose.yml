@@ -1,0 +1,45 @@
+# ─────────────────────────────────────────────────
+# dach-webui – OpenWebUI für Dachdecker-KI
+# ─────────────────────────────────────────────────
+# Coolify-Deployment als separate Docker Compose Resource
+#
+# WICHTIG:
+#   - "Connect to Predefined Network" in Coolify AKTIVIEREN
+#   - Domain vergeben: z.B. ai.kundenname.de
+#   - Kommuniziert intern mit dach-mcp via:
+#     http://dach-mcp:8001/mcp
+# ─────────────────────────────────────────────────
+
+services:
+  dach-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - "3000:8080"
+    environment:
+      # ── Basis-Konfiguration ──
+      - WEBUI_NAME=Sicherheitsberater
+      - WEBUI_URL=https://ai.kundenname.de       # ← ANPASSEN
+      - ENABLE_SIGNUP=false                        # Registrierung deaktiviert
+      - DEFAULT_USER_ROLE=user
+
+      # ── Azure AI Foundry (GPT-4o) ──
+      - OPENAI_API_BASE_URL=https://DEIN-ENDPOINT.openai.azure.com/openai/deployments/gpt-4o/  # ← ANPASSEN
+      - OPENAI_API_KEY=DEIN-AZURE-API-KEY          # ← ANPASSEN
+
+      # ── RAG / Knowledge Base ──
+      - RAG_EMBEDDING_MODEL=text-embedding-3-small
+      - CHUNK_SIZE=1500
+      - CHUNK_OVERLAP=200
+      - RAG_TOP_K=8
+
+      # ── Dateien / Uploads ──
+      - UPLOAD_DIR=/app/backend/data/uploads
+      - ENABLE_IMAGE_GENERATION=false
+
+    volumes:
+      - dach-webui-data:/app/backend/data
+    restart: unless-stopped
+
+volumes:
+  dach-webui-data:
+    driver: local

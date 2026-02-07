@@ -1,0 +1,9 @@
+.git
+.gitignore
+.env
+*.md
+coolify/
+__pycache__
+*.pyc
+.venv
+.pytest_cache
