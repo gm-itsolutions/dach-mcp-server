@@ -38,11 +38,21 @@ MCP Server für automatisierte Gefährdungsbeurteilungen im Dachdecker- und Ger�
 | `create_gefaehrdungsbeurteilung` | Generiert PDF mit Risikobewertung & Maßnahmen |
 | `get_standard_gefaehrdungen` | Branchenübliche Standard-Gefährdungen (DGUV/BG BAU) |
 
+## Handbuch (Wiki)
+
+Installation, Deployment in Coolify, Einrichtung von OpenWebUI, Prüfen, Fehlerbehebung und Wartung stehen im [Wiki](https://git.gm-itsolutions.de/gm-itsolutions/dach-mcp-server/wiki):
+
+- [Kurzanleitung Coolify Deployment](https://git.gm-itsolutions.de/gm-itsolutions/dach-mcp-server/wiki/Kurzanleitung)
+- [MCP Server in Coolify deployen](https://git.gm-itsolutions.de/gm-itsolutions/dach-mcp-server/wiki/MCP-Server-Deployen)
+- [OpenWebUI deployen](https://git.gm-itsolutions.de/gm-itsolutions/dach-mcp-server/wiki/OpenWebUI-Deployen) und [einrichten](https://git.gm-itsolutions.de/gm-itsolutions/dach-mcp-server/wiki/OpenWebUI-Einrichten) (inkl. Knowledge Base)
+- [Prüfen und Fehlerbehebung](https://git.gm-itsolutions.de/gm-itsolutions/dach-mcp-server/wiki/Pruefen-und-Fehlerbehebung)
+- [Updates und Wartung](https://git.gm-itsolutions.de/gm-itsolutions/dach-mcp-server/wiki/Updates-und-Wartung)
+
 ## Lokale Entwicklung
 
 ```bash
 # Repository klonen
-git clone https://github.com/DEIN-ORG/dach-mcp-server.git
+git clone https://git.gm-itsolutions.de/gm-itsolutions/dach-mcp-server.git
 cd dach-mcp-server
 
 # Dependencies installieren
@@ -58,69 +68,6 @@ python -m src.server
 
 ```bash
 npx @modelcontextprotocol/inspector http://localhost:32400/mcp
-```
-
-## Coolify Deployment
-
-### 1. MCP Server deployen
-
-1. **Neue Resource** → Docker Compose → GitHub Repository verknüpfen
-2. **Build Pack**: Docker Compose
-3. **Connect to Predefined Network**: ✅ Aktivieren
-4. **Domain**: Keine (nur intern)
-5. Auto Deploy: ✅
-
-### 2. OpenWebUI deployen
-
-1. Separate Coolify Resource erstellen (siehe `coolify/dach-webui-docker-compose.yml`)
-2. **Connect to Predefined Network**: ✅ Aktivieren
-3. **Domain**: `ai.kundenname.de` vergeben
-4. Umgebungsvariablen anpassen (Azure Endpoint, API Key)
-
-### 3. MCP in OpenWebUI verbinden
-
-```
-Admin Panel → Settings → Tools → "+"
-Typ:  MCP (Streamable HTTP)
-URL:  http://dach-mcp:32400/mcp
-```
-
-### 4. Assistent einrichten
-
-```
-Workspace → Models → "+" New Model
-Name:          Sicherheitsberater
-Base Model:    GPT-4o (Azure)
-System Prompt: [Inhalt von openwebui-system-prompt.md einfügen]
-Tools:         ✅ Alle MCP Tools aktivieren
-Knowledge:     DGUV/BG BAU Dokumente hochladen
-```
-
-## Knowledge Base (RAG)
-
-Folgende Dokumente in OpenWebUI als Knowledge Base hochladen:
-
-- DGUV Vorschrift 38 – Bauarbeiten
-- TRBS 2121 – Absturzgefahr
-- BG BAU Gefährdungsbeurteilungs-Muster
-- ArbStättV / BetrSichV (relevante Auszüge)
-- Firmeninterne Sicherheitsstandards
-
-## Debugging
-
-```bash
-# DNS-Auflösung testen (von OpenWebUI aus)
-docker exec $(docker ps -qf "name=dach-webui") sh -c "nslookup dach-mcp"
-
-# MCP Server erreichbar?
-docker exec $(docker ps -qf "name=dach-webui") sh -c "curl -s http://dach-mcp:32400/mcp"
-
-# Netzwerk-Aliase prüfen
-docker inspect $(docker ps -qf "name=dach-mcp") \
-  --format '{{range $net, $config := .NetworkSettings.Networks}}{{$net}}: {{$config.Aliases}}{{"\n"}}{{end}}'
-
-# MCP Server Logs
-docker logs $(docker ps -qf "name=dach-mcp") --tail 50 -f
 ```
 
 ## Projektstruktur
