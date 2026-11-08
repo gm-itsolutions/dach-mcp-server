@@ -2,7 +2,7 @@
 # Gefährdungsbeurteilungs-MCP Server
 # Multi-stage build: lean production image mit ffmpeg
 # ─────────────────────────────────────────────────
-FROM python:3.12-slim AS base
+FROM python:3.15-slim AS base
 
 # System-Abhängigkeiten: ffmpeg für Video-Frames
 RUN apt-get update && \
